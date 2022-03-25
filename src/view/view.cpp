@@ -10,16 +10,12 @@ View *View::getInstance(QObject* controller)
 
 const void View::changeView(Window windownum)
 {
-    if(currentview)
-        currentview->hide();
-    currentview = viewclasses[windownum];
-    currentview->show();
+    mainwindow->changeView(windownum);
 }
 
 const std::string View::getTokenKeyFromView() const
 {
-    TokenWindow* tmp = static_cast<TokenWindow*>(viewclasses[Window::TOKENWINDOW]);
-    return tmp->getTokenKey().toStdString();
+    return mainwindow->getTokenKey().toStdString();
 }
 
 const void View::setTrendingCurrencies(std::vector<std::string> &trendingcrypto)
@@ -29,55 +25,51 @@ const void View::setTrendingCurrencies(std::vector<std::string> &trendingcrypto)
     for(auto& crypto : trendingcrypto)
         newtrendingcrypto.push_back(QString(crypto.c_str()));
 
-    MainWindow* tmp = static_cast<MainWindow*>(viewclasses[Window::MAINWINDOW]);
-    tmp->setTrendingCurrency(newtrendingcrypto);
+    mainwindow->setTrendingCurrencies(newtrendingcrypto);
 }
 
 const std::string View::getSearchText() const
 {
-    MainWindow* tmp = static_cast<MainWindow*>(viewclasses[Window::MAINWINDOW]);
-    return tmp->getSearchText().toStdString();
+    return mainwindow->getSearchText().toStdString();
 }
 
-const void View::setPrice(const std::string &price)
+const void View::setPrice(std::string price)
 {
-    CryptoDetailsWindow* tmp = static_cast<CryptoDetailsWindow*>(viewclasses[Window::CRYPTODETAILSWINDOW]);
-    tmp->setPrice(QString(price.c_str()));
+    mainwindow->setPrice(QString::fromStdString(price));
 }
 
-const void View::setMarketCap(const std::string &marketcap)
+const void View::setMarketCap(std::string marketcap)
 {
-    CryptoDetailsWindow* tmp = static_cast<CryptoDetailsWindow*>(viewclasses[Window::CRYPTODETAILSWINDOW]);
-    tmp->setMarketCap(QString(marketcap.c_str()));
+    mainwindow->setMarketCap(QString::fromStdString(marketcap));
 }
 
-const void View::setMaxSupply(const std::string &maxsupply)
+const void View::setMaxSupply(std::string maxsupply)
 {
-    CryptoDetailsWindow* tmp = static_cast<CryptoDetailsWindow*>(viewclasses[Window::CRYPTODETAILSWINDOW]);
-    tmp->setMaxSupply(QString(maxsupply.c_str()));
+    mainwindow->setMaxSupply(QString::fromStdString(maxsupply));
 }
 
-const void View::setCryptoCurrency(const std::string &cryptocurrency)
+const void View::setCryptoCurrency(std::string cryptocurrency)
 {
-    CryptoDetailsWindow* tmp = static_cast<CryptoDetailsWindow*>(viewclasses[Window::CRYPTODETAILSWINDOW]);
-    tmp->setCryptoCurrency(QString(cryptocurrency.c_str()));
+    mainwindow->setCryptoCurrency(QString::fromStdString(cryptocurrency));
+}
+
+const void View::setDescription(std::string description)
+{
+    mainwindow->setDescription(QString::fromStdString(description));
+}
+
+const void View::setCryptoCurrencyImage(QPixmap *image)
+{
+    mainwindow->setCryptoCurrencyImage(image);
 }
 
 View::View(QObject* controller)
 {
     this->controller = controller;
-    currentview = 0; // Setting to 0
 
-    viewclasses[Window::TOKENWINDOW] = new TokenWindow(controller);   // Changed for Debugging this for event and controller for event filter
-    viewclasses[Window::MAINWINDOW] = new MainWindow(controller);
-    viewclasses[Window::CRYPTODETAILSWINDOW] = new CryptoDetailsWindow(controller);
+    mainwindow = new MainWindow(controller);
+    mainwindow->show();
 
-    static_cast<QDialog*>(viewclasses[Window::TOKENWINDOW])->open();
-    static_cast<QDialog*>(viewclasses[Window::CRYPTODETAILSWINDOW])->open();
-
-    viewclasses[Window::TOKENWINDOW]->hide();
-    viewclasses[Window::CRYPTODETAILSWINDOW]->hide();
-
-    changeView(Window::TOKENWINDOW); // NOt good
+    changeView(Window::TOKENWINDOW);
 }
 

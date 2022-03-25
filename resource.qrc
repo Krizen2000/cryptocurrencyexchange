@@ -1,0 +1,13 @@
+<RCC>
+    <qresource prefix="/rc">
+        <file>img/helpicon.png</file>
+        <file>img/logoicon.png</file>
+        <file>img/settingicon.png</file>
+        <file>img/backbutton.png</file>
+        <file>img/bitcoinicon.png</file>
+        <file>img/erroricon.png</file>
+        <file>img/ethereumicon.png</file>
+        <file>img/litecoinicon.png</file>
+        <file>img/moneroicon.png</file>
+    </qresource>
+</RCC>

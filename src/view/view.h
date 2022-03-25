@@ -7,10 +7,9 @@
 #include<vector>
 #include<array>
 #include<string>
+#include <QPixmap>
 
-#include"src/view/tokenwindow/tokenwindow.h"
-#include"src/view/mainwindow/mainwindow.h"
-#include"src/view/cryptodetailswindow/cryptodetailswindow.h"
+#include"src/view/mainwindow.h"
 
 class View : public QObject
 {
@@ -24,6 +23,7 @@ public:
         CRYPTODETAILSWINDOW,
     };
 
+
     const void changeView(Window windownum);
 
     // Class TokenWindow
@@ -34,16 +34,20 @@ public:
     const std::string getSearchText() const;
 
     // Class CryptoDetailsWindow
-    const void setPrice(const std::string& price);
-    const void setMarketCap(const std::string& marketcap);
-    const void setMaxSupply(const std::string& maxsupply);
-    const void setCryptoCurrency(const std::string& cryptocurrency);
+    const void setPrice(std::string price);
+    const void setMarketCap(std::string marketcap);
+    const void setMaxSupply(std::string maxsupply);
+    const void setCryptoCurrency(std::string cryptocurrency);
+    const void setDescription(std::string description);
+    const void setCryptoCurrencyImage(QPixmap* image);
 
 private:
+
     explicit View(QObject* controller);
 
-    std::array<QWidget*,3> viewclasses;
-    QWidget* currentview;
+//    std::array<QWidget*,3> viewclasses;
+//    QWidget* currentview;
+    MainWindow* mainwindow;
 
     QObject* controller;
 };

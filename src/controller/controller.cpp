@@ -98,6 +98,8 @@ bool Controller::eventFilter2(QObject *dest, ApplicationStartEvent *event)
 bool Controller::eventFilter3(QObject *dest, TokenKeyAcquiredEvent *event)
 {
     model->setToken(view->getTokenKeyFromView());
+    auto tmp = model->gettrendingCryptoCurrencyNames();
+    view->setTrendingCurrencies(tmp);
     view->changeView(View::MAINWINDOW);
 
     return true;
@@ -115,6 +117,7 @@ bool Controller::eventFilter4(QObject *dest, TrendingCryptoButtonClickedEvent *e
     view->setMarketCap(data.at("marketcap"s));
     view->setMaxSupply(data.at("maxsupply"s));
     view->setCryptoCurrency(cryptoname);
+    view->setCryptoCurrencyImage(model->getImage(cryptoname));
 
     view->changeView(View::Window::CRYPTODETAILSWINDOW);
 

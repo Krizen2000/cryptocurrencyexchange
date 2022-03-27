@@ -31,17 +31,9 @@ set(PROJECT_SOURCES
         src/model/model.cpp
 
 # View Files
-        src/view/mainwindow/mainwindow.ui
-        src/view/mainwindow/mainwindow.h
-        src/view/mainwindow/mainwindow.cpp
-
-        src/view/tokenwindow/tokenwindow.h
-        src/view/tokenwindow/tokenwindow.cpp
-        src/view/tokenwindow/tokenwindow.ui
-
-        src/view/cryptodetailswindow/cryptodetailswindow.h
-        src/view/cryptodetailswindow/cryptodetailswindow.cpp
-        src/view/cryptodetailswindow/cryptodetailswindow.ui
+        src/view/mainwindow.ui
+        src/view/mainwindow.h
+        src/view/mainwindow.cpp
 
         src/view/view.h
         src/view/view.cpp
@@ -57,6 +49,8 @@ set(PROJECT_SOURCES
         src/events/cryptodetailsbackbuttonclickedevent.hpp
         src/events/tokenkeyacquiredevent.hpp
         src/events/trendingcryptobuttonclickedevent.hpp
+# Resources
+        resource.qrc
 )
 
 if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)

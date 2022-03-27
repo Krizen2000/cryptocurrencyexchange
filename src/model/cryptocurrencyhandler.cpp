@@ -5,7 +5,7 @@
 
 //}
 
-const std::vector<std::string> CryptoCurrencyHandler::gettrendingCryptoCurrencyNames() const {
+std::vector<std::string> CryptoCurrencyHandler::gettrendingCryptoCurrencyNames() const {
     std::vector<std::string> trendingnames;
 
     for(auto& element : trendinglist)
@@ -67,6 +67,24 @@ const double CryptoCurrencyHandler::getMarketCapOf(const std::string& id) const 
     return 0.0;
 }
 
+const void CryptoCurrencyHandler::addTrendingCryptoCurrency(std::string id)
+{
+    if(auto cryptocurrency = getCryptoCurrencyObject(id); cryptocurrency == id)
+        trendinglist.push_back(cryptocurrency);
+}
+
+const void CryptoCurrencyHandler::removeTrendingCryptoCurrency(std::string id)
+{
+    if(auto cryptocurrency = getCryptoCurrencyObject(id); cryptocurrency == id)
+    {
+        for(auto ptr = trendinglist.begin(); ptr < trendinglist.end(); ptr++)
+        {
+            if(*ptr == id)  // This might not work
+                trendinglist.erase(ptr);
+        }
+    }
+}
+
 
 // Update Details related to specific CryptoCurrency
 
@@ -110,3 +128,13 @@ const void CryptoCurrencyHandler::deleteCryptoCurrency(const std::string& id) {
             cryptolist.erase(i);
     }
 }
+
+const CryptoCurrency CryptoCurrencyHandler::getCryptoCurrencyObject(std::string id)
+{
+    for(auto& element : cryptolist)
+        if(element == id)
+            return element;
+    return CryptoCurrency("","");
+    // No error messages for no elements
+}
+

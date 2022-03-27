@@ -33,6 +33,11 @@ const std::string View::getSearchText() const
     return mainwindow->getSearchText().toStdString();
 }
 
+const std::string View::getClickedButton() const
+{
+    return mainwindow->getClickedButtonName().toStdString();
+}
+
 const void View::setPrice(std::string price)
 {
     mainwindow->setPrice(QString::fromStdString(price));
@@ -46,6 +51,11 @@ const void View::setMarketCap(std::string marketcap)
 const void View::setMaxSupply(std::string maxsupply)
 {
     mainwindow->setMaxSupply(QString::fromStdString(maxsupply));
+}
+
+const void View::setSymbol(std::string symbol)
+{
+    mainwindow->setSymbol(QString::fromStdString(symbol));
 }
 
 const void View::setCryptoCurrency(std::string cryptocurrency)

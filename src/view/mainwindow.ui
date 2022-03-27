@@ -677,8 +677,8 @@
               </property>
               <property name="minimumSize">
                <size>
-                <width>200</width>
-                <height>200</height>
+                <width>230</width>
+                <height>230</height>
                </size>
               </property>
               <property name="maximumSize">
@@ -686,6 +686,9 @@
                 <width>200</width>
                 <height>200</height>
                </size>
+              </property>
+              <property name="styleSheet">
+               <string notr="true"/>
               </property>
               <property name="text">
                <string/>
@@ -711,27 +714,6 @@
             <item>
              <widget class="QWidget" name="basicdetails" native="true">
               <layout class="QGridLayout" name="gridLayout_2">
-               <item row="0" column="0">
-                <widget class="QLabel" name="namelabel">
-                 <property name="text">
-                  <string>Name:</string>
-                 </property>
-                </widget>
-               </item>
-               <item row="0" column="1">
-                <widget class="QLabel" name="cryptocurrencyname">
-                 <property name="text">
-                  <string>null</string>
-                 </property>
-                </widget>
-               </item>
-               <item row="1" column="0">
-                <widget class="QLabel" name="symbollabel">
-                 <property name="text">
-                  <string>Symbol:</string>
-                 </property>
-                </widget>
-               </item>
                <item row="1" column="1">
                 <widget class="QLabel" name="cryptocurrencysymbol">
                  <property name="text">
@@ -750,6 +732,27 @@
                 <widget class="QLabel" name="cryptocurrencymaxsupply">
                  <property name="text">
                   <string>null</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="0" column="0">
+                <widget class="QLabel" name="namelabel">
+                 <property name="text">
+                  <string>Name:</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="0" column="1">
+                <widget class="QLabel" name="cryptocurrencyname">
+                 <property name="text">
+                  <string>null</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="1" column="0">
+                <widget class="QLabel" name="symbollabel">
+                 <property name="text">
+                  <string>Symbol:</string>
                  </property>
                 </widget>
                </item>

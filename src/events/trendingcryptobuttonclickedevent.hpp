@@ -6,7 +6,7 @@
 
 class TrendingCryptoButtonClickedEvent : public QEvent {
 public:
-    explicit TrendingCryptoButtonClickedEvent(std::string cryptocurrency) : QEvent(TrendingCryptoButtonClickedEvent::type()), cryptocurrency(cryptocurrency) {}
+    explicit TrendingCryptoButtonClickedEvent() : QEvent(TrendingCryptoButtonClickedEvent::type()) {}
 
     virtual ~TrendingCryptoButtonClickedEvent() {}
 
@@ -18,12 +18,8 @@ public:
         }
         return customeventtype;
     }
-    const std::string getCryptoCurrency() const {
-        return cryptocurrency;
-    }
 private:
 //    static QEvent::Type customeventtype;
-    const std::string cryptocurrency;
 };
 
 #endif // TRENDINGCRYPTOBUTTONCLICKED_HPP

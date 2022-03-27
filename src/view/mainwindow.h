@@ -26,10 +26,13 @@ public:
     const void setTrendingCurrencies(std::vector<QString>& trendingcrypto);
     const QString getSearchText() const; // Future use
 
+    const QString getClickedButtonName() const;
+
 
     const void setPrice(const QString& price);
     const void setMarketCap(const QString& marketcap);
     const void setMaxSupply(const QString& maxsupply);
+    const void setSymbol(const QString& symbol);
     const void setCryptoCurrency(const QString& cryptocurrency);
     const void setDescription(const QString& description);
     const void setCryptoCurrencyImage(const QPixmap* image);
@@ -50,6 +53,7 @@ private slots:
 private:
     Ui::MainWindow *ui;
     QObject* controller;
+    QString clickedbutton;
 
 };
 

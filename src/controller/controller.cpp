@@ -108,7 +108,8 @@ bool Controller::eventFilter3(QObject *dest, TokenKeyAcquiredEvent *event)
 
 bool Controller::eventFilter4(QObject *dest, TrendingCryptoButtonClickedEvent *event)
 {
-    std::string cryptoname = event->getCryptoCurrency();
+//    std::string cryptoname = event->getCryptoCurrency();
+    std::string cryptoname = view->getClickedButton(); // Gets name from function rather then Event
     std::map<std::string,std::string> data = connection->retrieveData(model->getSymbol(cryptoname),model->getToken());
 
     using namespace std::string_literals;
@@ -116,6 +117,7 @@ bool Controller::eventFilter4(QObject *dest, TrendingCryptoButtonClickedEvent *e
     view->setPrice(data.at("price"s));
     view->setMarketCap(data.at("marketcap"s));
     view->setMaxSupply(data.at("maxsupply"s));
+    view->setSymbol(model->getSymbol(cryptoname));
     view->setCryptoCurrency(cryptoname);
     view->setCryptoCurrencyImage(model->getImage(cryptoname));
 

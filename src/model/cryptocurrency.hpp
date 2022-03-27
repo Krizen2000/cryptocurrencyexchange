@@ -38,7 +38,8 @@ public:
     const bool operator== (const CryptoCurrency& crypto) const {
         return symbol == crypto.symbol && name == crypto.name;
     }
-    const bool operator== (std::string id) const {  //
+    const bool operator== (std::string id) const {  // Something is not working here
+//        return symbol.compare(boost::to_upper_copy(id).c_str()) || name.compare(boost::to_lower_copy(id).c_str());
         return symbol == boost::to_upper_copy(id) || name == boost::to_lower_copy(id);
     }
 };

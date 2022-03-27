@@ -32,11 +32,13 @@ public:
     // Class MainWindow
     const void setTrendingCurrencies(std::vector<std::string>& trendingcrypto);
     const std::string getSearchText() const;
+    const std::string getClickedButton() const;
 
     // Class CryptoDetailsWindow
     const void setPrice(std::string price);
     const void setMarketCap(std::string marketcap);
     const void setMaxSupply(std::string maxsupply);
+    const void setSymbol(std::string symbol);
     const void setCryptoCurrency(std::string cryptocurrency);
     const void setDescription(std::string description);
     const void setCryptoCurrencyImage(QPixmap* image);

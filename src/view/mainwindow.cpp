@@ -41,6 +41,11 @@ const QString MainWindow::getSearchText() const
     return ui->searchfield->text();
 }
 
+const QString MainWindow::getClickedButtonName() const
+{
+    return clickedbutton;
+}
+
 const void MainWindow::setPrice(const QString &price)
 {
     ui->cryptocurrencyprice->setText(price);
@@ -56,6 +61,11 @@ const void MainWindow::setMaxSupply(const QString &maxsupply)
     ui->cryptocurrencymaxsupply->setText(maxsupply);
 }
 
+const void MainWindow::setSymbol(const QString &symbol)
+{
+    ui->cryptocurrencysymbol->setText(symbol);
+}
+
 const void MainWindow::setCryptoCurrency(const QString &cryptocurrency)
 {
     ui->cryptocurrencyname->setText(cryptocurrency);
@@ -68,7 +78,7 @@ const void MainWindow::setDescription(const QString& description)
 
 const void MainWindow::setCryptoCurrencyImage(const QPixmap *image)
 {
-    ui->cryptocurrencyname->setPixmap(*image);
+    ui->cryptocurrencyimage->setPixmap(*image);
 }
 
 const void MainWindow::changeView(int window)
@@ -80,28 +90,32 @@ const void MainWindow::changeView(int window)
 
 void MainWindow::on_trend1_clicked()
 {
-    QEvent * event = new TrendingCryptoButtonClickedEvent(ui->trend1->text().toStdString());
+    clickedbutton = ui->trend1->text();
+    QEvent * event = new TrendingCryptoButtonClickedEvent();
     QCoreApplication::sendEvent(controller,event);
 }
 
 
 void MainWindow::on_trend2_clicked()
 {
-    QEvent * event = new TrendingCryptoButtonClickedEvent(ui->trend2->text().toStdString());
+    clickedbutton = ui->trend2->text();
+    QEvent * event = new TrendingCryptoButtonClickedEvent();
     QCoreApplication::sendEvent(controller,event);
 }
 
 
 void MainWindow::on_trend3_clicked()
 {
-    QEvent * event = new TrendingCryptoButtonClickedEvent(ui->trend3->text().toStdString());
+    clickedbutton = ui->trend3->text();
+    QEvent * event = new TrendingCryptoButtonClickedEvent();
     QCoreApplication::sendEvent(controller,event);
 }
 
 
 void MainWindow::on_trend4_clicked()
 {
-    QEvent * event = new TrendingCryptoButtonClickedEvent(ui->trend4->text().toStdString());
+    clickedbutton = ui->trend4->text();
+    QEvent * event = new TrendingCryptoButtonClickedEvent();
     QCoreApplication::sendEvent(controller,event);
 }
 

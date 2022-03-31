@@ -11,6 +11,7 @@
 #include"src/events/applicationstartevent.hpp"
 
 #include<boost/asio.hpp>
+//#include<boost/asio/error.hpp>
 #include<boost/beast/core.hpp>
 #include<boost/beast/http.hpp>
 
@@ -36,6 +37,7 @@ private:
     std::map<std::string,std::string> parseJson(std::string symbol, const std::string& data);
 public:
     static Connection* getInstance(QApplication* application);
+    /** Raises Exception */
     std::map<std::string,std::string> retrieveData(const std::string symbol, const std::string& key);
     std::vector<std::map<std::string,std::string>> retrieveAllData(std::vector<std::string> symbol, const std::string& key);
 

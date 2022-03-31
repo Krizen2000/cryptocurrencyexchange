@@ -20,7 +20,7 @@ std::string Connection::httpsRequest(std::string host,std::string port,const std
     namespace http = boost::beast::http;
     namespace ssl = net::ssl;
 
-    try {
+//    try {         // Removed and handling of network is forwarded to Class Controller
         net::io_context context;
         ssl::context ctx(ssl::context::tlsv12_client);
 
@@ -62,12 +62,12 @@ std::string Connection::httpsRequest(std::string host,std::string port,const std
         stream.shutdown(ec);
 
         return beast::buffers_to_string(res.body().data());
-    }
-    catch(std::exception const& er) {
-        std::cerr << "Error: " << er.what() << std::endl;
-        return std::string("ERROR");
-    }
-    return std::string("???");
+//    }
+//    catch(std::exception const& er) {
+//        std::cerr << "Error: " << er.what() << std::endl; // Change this for support for Bad Connection
+//        return std::string("ERROR");
+//    }
+//    return std::string("???");
 }
 
 std::map<std::string,std::string> Connection::parseJson(std::string symbol,const std::string& data) {

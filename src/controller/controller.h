@@ -5,6 +5,7 @@
 #include<QApplication>
 #include<QEvent>
 #include<string>
+#include<exception>
 #include<map>
 
 #include"src/model/model.h"

@@ -73,6 +73,18 @@ const void View::setCryptoCurrencyImage(QPixmap *image)
     mainwindow->setCryptoCurrencyImage(image);
 }
 
+const void View::displayErrorMessageBox(const std::string& errmsg) const
+{
+    static QMessageBox* errormsgbox = 0;
+
+    if(!errormsgbox)
+        delete errormsgbox;
+
+    errormsgbox = new QMessageBox();
+    errormsgbox->setText(errmsg.c_str());
+    errormsgbox->exec();
+}
+
 View::View(QObject* controller)
 {
     this->controller = controller;

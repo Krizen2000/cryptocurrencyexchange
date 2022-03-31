@@ -108,15 +108,28 @@ bool Controller::eventFilter3(QObject *dest, TokenKeyAcquiredEvent *event)
 
 bool Controller::eventFilter4(QObject *dest, TrendingCryptoButtonClickedEvent *event)
 {
+    using namespace std::string_literals;
 //    std::string cryptoname = event->getCryptoCurrency();
     std::string cryptoname = view->getClickedButton(); // Gets name from function rather then Event
-    std::map<std::string,std::string> data = connection->retrieveData(model->getSymbol(cryptoname),model->getToken());
-
-    using namespace std::string_literals;
+//    std::map<std::string,std::string> data = connection->retrieveData(model->getSymbol(cryptoname),model->getToken());
+    std::map<std::string,std::string> data;
+    try {
+        data = connection->retrieveData(model->getSymbol(cryptoname),model->getToken());
+    } catch(std::exception const& er) {     // Exceptions related to Network are catched
+        qDebug() << "Error: " << er.what();
+        // Make a error messageBox in View
+        view->displayErrorMessageBox(er.what());
+        return false;
+    }
 
     view->setPrice(data.at("price"s));
     view->setMarketCap(data.at("marketcap"s));
-    view->setMaxSupply(data.at("maxsupply"s));
+
+    if(auto maxsupply = data.at("maxsupply"s); maxsupply == ""s)
+        view->setMaxSupply("No Upper Bound"s);
+    else
+        view->setMaxSupply(data.at("maxsupply"s));
+
     view->setSymbol(model->getSymbol(cryptoname));
     view->setCryptoCurrency(cryptoname);
     view->setCryptoCurrencyImage(model->getImage(cryptoname));

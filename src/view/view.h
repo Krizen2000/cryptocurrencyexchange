@@ -3,6 +3,7 @@
 
 #include <QObject>
 #include<QWidget>
+#include<QMessageBox>
 #include<QString>
 #include<vector>
 #include<array>
@@ -42,6 +43,8 @@ public:
     const void setCryptoCurrency(std::string cryptocurrency);
     const void setDescription(std::string description);
     const void setCryptoCurrencyImage(QPixmap* image);
+
+    const void displayErrorMessageBox(const std::string& errmsg) const;
 
 private:
 

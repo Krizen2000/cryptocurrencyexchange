@@ -6,7 +6,7 @@
 
 struct CryptoCurrency {
 
-    CryptoCurrency(const std::string& symbol,const std::string& name, unsigned long long maxsupply = 0L, double price = 0.00F, double marketcap = 0.00F) : symbol(symbol) ,name(name), maxsupply(maxsupply), price(price), marketcap(marketcap) {}
+    CryptoCurrency(const std::string& symbol,const std::string& name,const unsigned long long maxsupply = 0L,const double price = 0.00F,const double marketcap = 0.00F) : symbol(symbol) ,name(name), maxsupply(maxsupply), price(price), marketcap(marketcap) {}
 
     std::string symbol;
     std::string name;

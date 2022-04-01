@@ -17,31 +17,32 @@ class MainWindow : public QMainWindow
     Q_OBJECT
 
 public:
-    explicit MainWindow(QObject* controller,QWidget *parent = nullptr);
+
+    explicit MainWindow(QObject *controller,QWidget *parent = nullptr);
     ~MainWindow();
 
 
     QString getTokenKey();
 
-    const void setTrendingCurrencies(std::vector<QString>& trendingcrypto);
+    const void setTrendingCurrencies(const std::vector<QString> &trendingcrypto);
     const QString getSearchText() const; // Future use
 
     const QString getClickedButtonName() const;
 
 
-    const void setPrice(const QString& price);
-    const void setMarketCap(const QString& marketcap);
-    const void setMaxSupply(const QString& maxsupply);
-    const void setSymbol(const QString& symbol);
-    const void setCryptoCurrency(const QString& cryptocurrency);
-    const void setDescription(const QString& description);
-    const void setCryptoCurrencyImage(const QPixmap* image);
+    const void setPrice(const QString &price);
+    const void setMarketCap(const QString &marketcap);
+    const void setMaxSupply(const QString &maxsupply);
+    const void setSymbol(const QString &symbol);
+    const void setCryptoCurrency(const QString &cryptocurrency);
+    const void setDescription(const QString &description);
+    const void setCryptoCurrencyImage(const QPixmap *image);
 
-    const void changeView(int window);
+    const void changeView(const int window);
 
 private slots:
-    void on_nextbutton_clicked();
 
+    void on_nextbutton_clicked();
 
     void on_trend1_clicked();
     void on_trend2_clicked();
@@ -51,8 +52,9 @@ private slots:
     void on_backbutton_clicked();
 
 private:
+
     Ui::MainWindow *ui;
-    QObject* controller;
+    QObject *controller;
     QString clickedbutton;
 
 };

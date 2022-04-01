@@ -2,13 +2,12 @@
 #define TRENDINGCRYPTOBUTTONCLICKEDEVENT_HPP
 
 #include<QEvent>
-#include<string>
 
 class TrendingCryptoButtonClickedEvent : public QEvent {
-public:
-    explicit TrendingCryptoButtonClickedEvent() : QEvent(TrendingCryptoButtonClickedEvent::type()) {}
 
-    virtual ~TrendingCryptoButtonClickedEvent() {}
+public:
+    TrendingCryptoButtonClickedEvent() : QEvent(TrendingCryptoButtonClickedEvent::type()) {}
+    ~TrendingCryptoButtonClickedEvent() {}
 
     static const QEvent::Type& type() {
         static QEvent::Type customeventtype = QEvent::None; // Extra
@@ -18,8 +17,6 @@ public:
         }
         return customeventtype;
     }
-private:
-//    static QEvent::Type customeventtype;
 };
 
 #endif // TRENDINGCRYPTOBUTTONCLICKED_HPP

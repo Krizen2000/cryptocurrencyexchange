@@ -11,7 +11,6 @@
 #include"src/events/applicationstartevent.hpp"
 
 #include<boost/asio.hpp>
-//#include<boost/asio/error.hpp>
 #include<boost/beast/core.hpp>
 #include<boost/beast/http.hpp>
 
@@ -30,21 +29,25 @@
 
 class Connection
 {
-private:
-    QApplication* application;
-    explicit Connection(QApplication* application);
-    std::string httpsRequest(const std::string host,const std::string port,const std::string& query, const std::string& key);
-    std::map<std::string,std::string> parseJson(std::string symbol, const std::string& data);
-public:
-    static Connection* getInstance(QApplication* application);
-    /** Raises Exception */
-    std::map<std::string,std::string> retrieveData(const std::string symbol, const std::string& key);
-    std::vector<std::map<std::string,std::string>> retrieveAllData(std::vector<std::string> symbol, const std::string& key);
 
-    void ApplicationStartedEvent(ApplicationStartEvent* event);
+public:
+    static Connection* getInstance(QApplication *application);
+
+    /** Raises Exception */
+    std::map<std::string,std::string> retrieveData(const std::string &symbol, const std::string &key);
+    std::vector<std::map<std::string,std::string>> retrieveAllData(const std::vector<std::string> &symbol, const std::string &key);
+
+    void ApplicationStartedEvent(ApplicationStartEvent *event);
+
+private:
+    QApplication *application;
+
+    Connection(QApplication *application);
+
+    std::string httpsRequest(const std::string &host,const std::string &port,const std::string &query, const std::string &key);
+    std::map<std::string,std::string> parseJson(const std::string &symbol, const std::string &data);
+
 };
 
-//Connection* Connection::instance = 0;
-//QApplication* Connection::application = 0;
 
 #endif // CONNECTION_H

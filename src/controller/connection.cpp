@@ -1,18 +1,18 @@
 #include "connection.h"
 
-Connection::Connection(QApplication* application)
+Connection::Connection(QApplication *application)
 {
     Connection::application = application;
 }
-        // FAcked UP CodE
-Connection* Connection::getInstance(QApplication* application) { // ? Can use reference pointer
+
+Connection* Connection::getInstance(QApplication *application) {
     static Connection* instance = 0;
     if(!instance)
         instance = new Connection(application);
     return instance;
 }
 
-std::string Connection::httpsRequest(std::string host,std::string port,const std::string& query, const std::string& key) {
+std::string Connection::httpsRequest(const std::string &host,const std::string &port,const std::string& query, const std::string& key) {
 
     // Declaring Namespaces for Convinience
     namespace net = boost::asio;
@@ -20,57 +20,49 @@ std::string Connection::httpsRequest(std::string host,std::string port,const std
     namespace http = boost::beast::http;
     namespace ssl = net::ssl;
 
-//    try {         // Removed and handling of network is forwarded to Class Controller
-        net::io_context context;
-        ssl::context ctx(ssl::context::tlsv12_client);
+    net::io_context context;
+    ssl::context ctx(ssl::context::tlsv12_client);
 
-        ctx.set_verify_mode(ssl::verify_none);
+    ctx.set_verify_mode(ssl::verify_none);
 
-        net::ip::tcp::resolver resolver(context);
-        beast::ssl_stream<beast::tcp_stream> stream(context, ctx);
+    net::ip::tcp::resolver resolver(context);
+    beast::ssl_stream<beast::tcp_stream> stream(context, ctx);
 
-        if(! SSL_set_tlsext_host_name(stream.native_handle(),host.c_str())) {
-            beast::error_code ec{static_cast<int>(::ERR_get_error()), net::error::get_ssl_category()};
-            throw beast::system_error{ec};
-        }
+    if(! SSL_set_tlsext_host_name(stream.native_handle(),host.c_str())) {
+        beast::error_code ec{static_cast<int>(::ERR_get_error()), net::error::get_ssl_category()};
+        throw beast::system_error{ec};
+    }
 
-        auto const results = resolver.resolve(host,port);
-        beast::get_lowest_layer(stream).connect(results);
+    auto const results = resolver.resolve(host,port);
+    beast::get_lowest_layer(stream).connect(results);
 
-        stream.handshake(ssl::stream_base::client);
+    stream.handshake(ssl::stream_base::client);
 
-        // TLS Handshake Completed
-        // Initiating HTTPS Request
+    // TLS Handshake Completed
+    // Initiating HTTPS Request
 
-        http::request<http::string_body> req(http::verb::get,query,11); // 11
-        req.set(http::field::host,host);
-        req.set("X-CMC_PRO_API_KEY",key);
-        req.set("Accept","application/json");
-        req.prepare_payload();
+    http::request<http::string_body> req(http::verb::get,query,11); // HTTP v1.1
+    req.set(http::field::host,host);
+    req.set("X-CMC_PRO_API_KEY",key);
+    req.set("Accept","application/json");
+    req.prepare_payload();
 
-        http::write(stream,req);
-        beast::flat_buffer buffer;
+    http::write(stream,req);
+    beast::flat_buffer buffer;
 
 
-        http::response<http::dynamic_body> res;
-        http::read(stream,buffer,res);
+    http::response<http::dynamic_body> res;
+    http::read(stream,buffer,res);
 
-//        std::cout << res << '/n';
 
-        // Shutting down the socket
-        beast::error_code ec;
-        stream.shutdown(ec);
+    // Shutting down the socket
+    beast::error_code ec;
+    stream.shutdown(ec);
 
-        return beast::buffers_to_string(res.body().data());
-//    }
-//    catch(std::exception const& er) {
-//        std::cerr << "Error: " << er.what() << std::endl; // Change this for support for Bad Connection
-//        return std::string("ERROR");
-//    }
-//    return std::string("???");
+    return beast::buffers_to_string(res.body().data());
 }
 
-std::map<std::string,std::string> Connection::parseJson(std::string symbol,const std::string& data) {
+std::map<std::string,std::string> Connection::parseJson(const std::string &symbol,const std::string& data) {
 
     using namespace std::string_literals;
 
@@ -98,8 +90,8 @@ std::map<std::string,std::string> Connection::parseJson(std::string symbol,const
     return jsonattributes;
 }
 
-std::map<std::string,std::string> Connection::retrieveData(std::string symbol, const std::string& key) {
-    std::string host = "pro-api.coinmarketcap.com", port = "443";
+std::map<std::string,std::string> Connection::retrieveData(const std::string &symbol, const std::string& key) {
+    static const std::string host = "pro-api.coinmarketcap.com", port = "443";
     std::string query = "/v1/cryptocurrency/quotes/latest?symbol=";
 
     boost::to_lower(symbol);
@@ -112,14 +104,11 @@ std::map<std::string,std::string> Connection::retrieveData(std::string symbol, c
     return data;
 }
 
-std::vector<std::map<std::string,std::string>> Connection::retrieveAllData(std::vector<std::string> symbol, const std::string& key) {
+std::vector<std::map<std::string,std::string>> Connection::retrieveAllData(const std::vector<std::string> &symbol, const std::string& key) {
     std::vector<std::map<std::string,std::string>> data;
 
-    for(auto& item : symbol)
+    for(const auto& item : symbol)
         data.push_back(retrieveData(item,key));
     return data;
 }
 
-//void Connection::ApplicationStartedEvent(ApplicationStartEvent* event) {
-
-//}

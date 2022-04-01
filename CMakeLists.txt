@@ -19,8 +19,6 @@ find_package(Boost REQUIRED) # Boost Beast
 set(PROJECT_SOURCES
         src/main.cpp
 # Model Files
-#        src/model/cryptocurrency.h
-#        src/model/cryptocurrency.cpp
         src/model/userdata.hpp
 
         src/model/cryptocurrency.hpp
@@ -78,7 +76,6 @@ endif()
 
 target_link_libraries(CryptoCurrencyRate PRIVATE Qt${QT_VERSION_MAJOR}::Widgets)
 target_link_libraries(CryptoCurrencyRate PRIVATE OpenSSL::SSL OpenSSL::Crypto ${Boost_LIBRARIES})
-#target_link_libraries(CryptoCurrencyRate PRIVATE $CUSTOM_LIBRARY)
 
 set_target_properties(CryptoCurrencyRate PROPERTIES
     MACOSX_BUNDLE_GUI_IDENTIFIER my.example.com

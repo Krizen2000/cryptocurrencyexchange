@@ -1,14 +1,14 @@
 #ifndef VIEW_H
 #define VIEW_H
 
-#include <QObject>
+#include<QObject>
 #include<QWidget>
 #include<QMessageBox>
 #include<QString>
 #include<vector>
 #include<array>
 #include<string>
-#include <QPixmap>
+#include<QPixmap>
 
 #include"src/view/mainwindow.h"
 
@@ -16,48 +16,43 @@ class View : public QObject
 {
     Q_OBJECT
 public:
-    static View *getInstance(QObject* controller);
+
+    static View *getInstance(QObject *controller);
 
     enum Window {
         TOKENWINDOW,
         MAINWINDOW,
         CRYPTODETAILSWINDOW,
     };
-
-
-    const void changeView(Window windownum);
+    const void changeView(Window windownum) const;
 
     // Class TokenWindow
     const std::string getTokenKeyFromView() const;
 
     // Class MainWindow
-    const void setTrendingCurrencies(std::vector<std::string>& trendingcrypto);
+    const void setTrendingCurrencies(const std::vector<std::string> &trendingcrypto) const;
     const std::string getSearchText() const;
     const std::string getClickedButton() const;
 
     // Class CryptoDetailsWindow
-    const void setPrice(std::string price);
-    const void setMarketCap(std::string marketcap);
-    const void setMaxSupply(std::string maxsupply);
-    const void setSymbol(std::string symbol);
-    const void setCryptoCurrency(std::string cryptocurrency);
-    const void setDescription(std::string description);
-    const void setCryptoCurrencyImage(QPixmap* image);
+    const void setPrice(const std::string &price) const;
+    const void setMarketCap(const std::string &marketcap) const;
+    const void setMaxSupply(const std::string &maxsupply) const;
+    const void setSymbol(const std::string &symbol) const;
+    const void setCryptoCurrency(const std::string &cryptocurrency) const;
+    const void setDescription(const std::string &description) const;
+    const void setCryptoCurrencyImage(const QPixmap *image) const;
 
-    const void displayErrorMessageBox(const std::string& errmsg) const;
+    const void displayErrorMessageBox(const std::string &errmsg) const;
 
 private:
 
-    explicit View(QObject* controller);
+    explicit View(QObject *controller);
 
-//    std::array<QWidget*,3> viewclasses;
-//    QWidget* currentview;
-    MainWindow* mainwindow;
+    MainWindow *mainwindow;
+    QObject *controller;
 
-    QObject* controller;
 };
 
-//View* View::instance = 0;
-//QApplication* View::application = 0;
 
 #endif // VIEW_H

@@ -26,21 +26,20 @@ public:
     explicit Controller(QApplication* application);
     static Controller* getInstance(QApplication* application);
 
-    // These are all Event Observers
 protected:
     bool event(QEvent* event) override;
-//    void customEvent(QEvent* event) override;
-    bool eventFilter(QObject* dest, QEvent* event);
-    bool eventFilter2(QObject* dest, ApplicationStartEvent* event);
-    bool eventFilter3(QObject* dest, TokenKeyAcquiredEvent* event);
-    bool eventFilter4(QObject* dest, TrendingCryptoButtonClickedEvent* event);
-    bool eventFilter5(QObject* dest, CryptoDetailsBackButtonClickedEvent* event);
 
 private:
-    Model* model;
-    View* view;
-    QApplication* application;
-    Connection* connection;
+    Model *model;
+    View *view;
+    QApplication *application;
+    Connection *connection;
+
+    // These are all Event Dispatcher
+    void captureApplicationStartEvent(ApplicationStartEvent *event);
+    void captureTokenKeyAcquiredEvent(TokenKeyAcquiredEvent *event);
+    void captureTrendingCryptoButtonClickedEvent(TrendingCryptoButtonClickedEvent *event);
+    void captureCryptoDetailsBackButtonClickedEvent(CryptoDetailsBackButtonClickedEvent *event);
 };
 
 

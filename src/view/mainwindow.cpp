@@ -2,7 +2,7 @@
 #include "ui_mainwindow.h"
 
 
-MainWindow::MainWindow(QObject* controller,QWidget *parent) :
+MainWindow::MainWindow(QObject *controller,QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow)
 {
@@ -17,8 +17,8 @@ MainWindow::~MainWindow()
 
 void MainWindow::on_nextbutton_clicked()
 {
-    QEvent* eventd = new TokenKeyAcquiredEvent();         // Needs more work
-    QCoreApplication::sendEvent(controller,eventd);
+    QEvent *event = new TokenKeyAcquiredEvent();
+    QCoreApplication::sendEvent(controller,event);
     qDebug() << "NextButtonCLickedEvent!!!";
 }
 
@@ -28,12 +28,12 @@ QString MainWindow::getTokenKey()
 }
 
 
-const void MainWindow::setTrendingCurrencies(std::vector<QString> &trendingcrypto)
+const void MainWindow::setTrendingCurrencies(const std::vector<QString> &trendingcrypto)
 {
-    ui->trend1->setText(trendingcrypto[0]);
-    ui->trend2->setText(trendingcrypto[1]);
-    ui->trend3->setText(trendingcrypto[2]);
-    ui->trend4->setText(trendingcrypto[3]);
+    ui->trend1->setText(trendingcrypto.at(0));
+    ui->trend2->setText(trendingcrypto.at(1));
+    ui->trend3->setText(trendingcrypto.at(2));
+    ui->trend4->setText(trendingcrypto.at(3));
 }
 
 const QString MainWindow::getSearchText() const
@@ -71,7 +71,7 @@ const void MainWindow::setCryptoCurrency(const QString &cryptocurrency)
     ui->cryptocurrencyname->setText(cryptocurrency);
 }
 
-const void MainWindow::setDescription(const QString& description)
+const void MainWindow::setDescription(const QString &description)
 {
     ui->cryptocurrencydescription->setText(description);
 }
@@ -81,7 +81,7 @@ const void MainWindow::setCryptoCurrencyImage(const QPixmap *image)
     ui->cryptocurrencyimage->setPixmap(*image);
 }
 
-const void MainWindow::changeView(int window)
+const void MainWindow::changeView(const int window)
 {
     ui->stackedwindow->setCurrentIndex(window);
 }
@@ -91,7 +91,7 @@ const void MainWindow::changeView(int window)
 void MainWindow::on_trend1_clicked()
 {
     clickedbutton = ui->trend1->text();
-    QEvent * event = new TrendingCryptoButtonClickedEvent();
+    QEvent *event = new TrendingCryptoButtonClickedEvent();
     QCoreApplication::sendEvent(controller,event);
 }
 
@@ -99,7 +99,7 @@ void MainWindow::on_trend1_clicked()
 void MainWindow::on_trend2_clicked()
 {
     clickedbutton = ui->trend2->text();
-    QEvent * event = new TrendingCryptoButtonClickedEvent();
+    QEvent *event = new TrendingCryptoButtonClickedEvent();
     QCoreApplication::sendEvent(controller,event);
 }
 
@@ -107,7 +107,7 @@ void MainWindow::on_trend2_clicked()
 void MainWindow::on_trend3_clicked()
 {
     clickedbutton = ui->trend3->text();
-    QEvent * event = new TrendingCryptoButtonClickedEvent();
+    QEvent *event = new TrendingCryptoButtonClickedEvent();
     QCoreApplication::sendEvent(controller,event);
 }
 
@@ -115,14 +115,14 @@ void MainWindow::on_trend3_clicked()
 void MainWindow::on_trend4_clicked()
 {
     clickedbutton = ui->trend4->text();
-    QEvent * event = new TrendingCryptoButtonClickedEvent();
+    QEvent *event = new TrendingCryptoButtonClickedEvent();
     QCoreApplication::sendEvent(controller,event);
 }
 
 
 void MainWindow::on_backbutton_clicked()
 {
-    QEvent* event = new CryptoDetailsBackButtonClickedEvent();
+    QEvent *event = new CryptoDetailsBackButtonClickedEvent();
     QCoreApplication::sendEvent(controller,event);
 }
 

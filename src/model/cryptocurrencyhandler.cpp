@@ -32,7 +32,7 @@ const std::vector<std::string> CryptoCurrencyHandler::getCryptoListSymbols() con
     return requestedcryptolistsymbols;
 }
 
-std::string CryptoCurrencyHandler::getSymbol(std::string name) const
+std::string CryptoCurrencyHandler::getSymbol(const std::string& name) const
 {
     for(auto& item : cryptolist) {
         if(item == name)
@@ -67,13 +67,13 @@ const double CryptoCurrencyHandler::getMarketCapOf(const std::string& id) const 
     return 0.0;
 }
 
-const void CryptoCurrencyHandler::addTrendingCryptoCurrency(std::string id)
+const void CryptoCurrencyHandler::addTrendingCryptoCurrency(const std::string& id)
 {
     if(auto cryptocurrency = getCryptoCurrencyObject(id); cryptocurrency == id)
         trendinglist.push_back(cryptocurrency);
 }
 
-const void CryptoCurrencyHandler::removeTrendingCryptoCurrency(std::string id)
+const void CryptoCurrencyHandler::removeTrendingCryptoCurrency(const std::string& id)
 {
     if(auto cryptocurrency = getCryptoCurrencyObject(id); cryptocurrency == id)
     {
@@ -100,7 +100,7 @@ const void CryptoCurrencyHandler::updateCryptoCurrency(const std::string& id,con
 
 // Create a new CryptoCurrency Object
 //const std::string& symbol, const std::string& name, const std::string& maxsupply, const std::string& price, const std::string& marketcap
-const void CryptoCurrencyHandler::createCryptoCurrency(std::map<std::string,std::string>& data) {
+const void CryptoCurrencyHandler::createCryptoCurrency(const std::map<std::string,std::string>& data) {
     // ! THIS CAN LEAD TO ERRORS
     using namespace std::string_literals;
     char* tmp;
@@ -108,19 +108,17 @@ const void CryptoCurrencyHandler::createCryptoCurrency(std::map<std::string,std:
     double t_price = 0.0F;
     double t_marketcap = 0.0F;
 
-    if(!data["maxsupply"s].empty()) // ? Future implement "std::map::at" Doesn't Create null entry
-        t_maxsupply = strtoull(data["maxsupply"s].c_str(),&tmp,10);
-    if(!data["price"s].empty())
-        t_price = strtod(data["price"s].c_str(),&tmp);
-    if(!data["marketcap"s].empty())
-        t_marketcap = strtod(data["marketcap"s].c_str(),&tmp);
+    if(!data.at("maxsupply"s).empty()) // ? Future implement "std::map::at" Doesn't Create null entry
+        t_maxsupply = strtoull(data.at("maxsupply"s).c_str(),&tmp,10);
+    if(!data.at("price"s).empty())
+        t_price = strtod(data.at("price"s).c_str(),&tmp);
+    if(!data.at("marketcap"s).empty())
+        t_marketcap = strtod(data.at("marketcap"s).c_str(),&tmp);
 
-    CryptoCurrency newcrypto(data["symbol"s],data["name"s],t_maxsupply,t_price,t_marketcap);
+    CryptoCurrency newcrypto(data.at("symbol"s),data.at("name"s),t_maxsupply,t_price,t_marketcap);
 
     cryptolist.push_back(newcrypto);
 }
-
-// Remove a CryptoCurrency Object
 
 const void CryptoCurrencyHandler::deleteCryptoCurrency(const std::string& id) {
     for(auto i=cryptolist.begin(); i!=cryptolist.end(); i++) {

@@ -108,11 +108,11 @@ const void CryptoCurrencyHandler::createCryptoCurrency(const std::map<std::strin
     double t_price = 0.0F;
     double t_marketcap = 0.0F;
 
-    if(!data.at("maxsupply"s).empty()) // ? Future implement "std::map::at" Doesn't Create null entry
+    if(const auto& ptr = data.find("maxsupply"s); ptr != data.end())
         t_maxsupply = strtoull(data.at("maxsupply"s).c_str(),&tmp,10);
-    if(!data.at("price"s).empty())
+    if(const auto& ptr = data.find("price"s); ptr != data.end())
         t_price = strtod(data.at("price"s).c_str(),&tmp);
-    if(!data.at("marketcap"s).empty())
+    if(const auto& ptr = data.find("marketcap"s); ptr != data.end())
         t_marketcap = strtod(data.at("marketcap"s).c_str(),&tmp);
 
     CryptoCurrency newcrypto(data.at("symbol"s),data.at("name"s),t_maxsupply,t_price,t_marketcap);

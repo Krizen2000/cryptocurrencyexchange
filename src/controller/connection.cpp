@@ -78,13 +78,13 @@ std::map<std::string,std::string> Connection::parseJson(const std::string &symbo
 
     std::string str;
 
-    boost::to_upper(symbol);
+    std::string t_symbol = boost::to_upper_copy(symbol);
 
-    str = "data."s + symbol + ".quote.USD.price"s;
+    str = "data."s + t_symbol + ".quote.USD.price"s;
     jsonattributes.insert({"price"s, jsonfile.get<std::string>(str)});
-    str = "data."s + symbol + ".quote.USD.market_cap"s;
+    str = "data."s + t_symbol + ".quote.USD.market_cap"s;
     jsonattributes.insert({"marketcap"s, jsonfile.get<std::string>(str)});
-    str = "data."s + symbol + ".max_supply"s;
+    str = "data."s + t_symbol + ".max_supply"s;
     jsonattributes.insert({"maxsupply"s, static_cast<std::string>( jsonfile.get<std::string>(str) )});
 
     return jsonattributes;
@@ -94,8 +94,8 @@ std::map<std::string,std::string> Connection::retrieveData(const std::string &sy
     static const std::string host = "pro-api.coinmarketcap.com", port = "443";
     std::string query = "/v1/cryptocurrency/quotes/latest?symbol=";
 
-    boost::to_lower(symbol);
-    query += symbol;
+//    boost::to_lower(symbol);
+    query += boost::to_lower_copy(symbol);
 
     std::map<std::string,std::string> data;
 
